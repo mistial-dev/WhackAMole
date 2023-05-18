@@ -1,10 +1,17 @@
 ﻿namespace WhackAMole;
 
-public partial class Program
+/// <summary>
+///  Bot Settings
+/// </summary>
+public class BotSettings
 {
-    public class BotSettings
-    {
-        public string Token { get; set; }
-        public int TimeOut { get; set; }
-    }
+    /// <summary>
+    /// Discord Bot Token
+    /// </summary>
+    public required string Token { get; set; }
+        
+    /// <summary>
+    /// How long are spammers timed out for?
+    /// </summary>
+    public required int TimeOut { get; set; }
 }

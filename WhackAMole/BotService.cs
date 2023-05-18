@@ -6,7 +6,10 @@ using Microsoft.Extensions.Hosting;
 
 namespace WhackAMole;
 
-public partial class BotService : IHostedService
+/// <summary>
+/// Discord bot for dealing with spam links and messages.
+/// </summary>
+public class BotService : IHostedService
 {
     /// <summary>
     /// Log4net logger
@@ -122,7 +125,8 @@ public partial class BotService : IHostedService
     private async Task ProcessMessage(SocketMessage msg)
     {
         // Extract URLs from the message
-        var urls = UrlRegex().Matches(msg.Content).Select(m => m.Value).ToList();
+        var urls = Regex.Matches(msg.Content, @"(http|https):\/\/[^ ]*").Select(m => m.Value).ToList();
+
 
         // Check URLs against recent URLs
         if (urls.Any(url => _recentUrls.Count(m => m.Content == url) >= _settings.Message.DuplicationThreshold))
@@ -182,11 +186,4 @@ public partial class BotService : IHostedService
             _lastMessages.Remove(key);
         }
     }
-
-    /// <summary>
-    /// Used to extract URLs from messages.
-    /// </summary>
-    /// <returns></returns>
-    [GeneratedRegex("(http|https):\\/\\/[^ ]*")]
-    private static partial Regex UrlRegex();
 }

@@ -1,10 +1,13 @@
-﻿namespace WhackAMole;
+﻿using JetBrains.Annotations;
 
-public partial class Program
+namespace WhackAMole;
+
+/// <summary>
+/// Settings for message spam detection
+/// </summary>
+public class MessageSettings
 {
-    public class MessageSettings
-    {
-        public int DuplicationThreshold { get; set; }
-        public int TimeSpanMinutes { get; set; }
-    }
+    [UsedImplicitly]
+    public required int DuplicationThreshold { get; init; }
+    public required int TimeSpanMinutes { get; init; }
 }
